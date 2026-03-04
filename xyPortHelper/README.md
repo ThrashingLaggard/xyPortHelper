@@ -138,5 +138,5 @@ See the [LICENSE](https://www.gnu.org/licenses/gpl-3.0.en.html) file for more in
 
 ## Author
 
-> Project by ThrashingLaggard
-> Part of `xyToolz`  
+> Project by ThrashingLaggard,
+> originally as a part of `xyToolz`  
