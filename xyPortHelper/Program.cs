@@ -1,16 +1,12 @@
-﻿using System.Net.Sockets;
-using xyPorts.TCP;
-using xyPorts.UDP;
-
-internal class Program
+﻿internal class Program
 {
-    public static int Main(string[] args)
-    {
+    //public static int Main(string[] args)
+    //{
 
+    //    Use like this:
+    //    xyUdpClient.ReceiveDataUDP(17);
 
-        xyUdpClient.ReceiveDataUDP(17);
-
-        Console.ReadKey();
-        return 0;
-    }
+    //    Console.ReadKey();
+    //    return 0;
+    //}
 }
