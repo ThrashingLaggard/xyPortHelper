@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using xyToolz;
 using xyToolz.Helper.Logging;
+using xyToolz.QOL;
 
 namespace xyPorts.TCP
 {
