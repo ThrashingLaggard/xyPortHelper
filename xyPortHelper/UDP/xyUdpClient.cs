@@ -47,16 +47,13 @@ namespace xyPorts.UDP
 
         public static void ConnectUDP(String ip_, UInt16 port_, String message_)
         {
-            // Convert the message to bytes
             Byte[] sendBytes = xy.StringToBytes(message_);
 
-            // Convert the IP and port to an IPEndPoint
             if ( ConvertEndpoint(ip_, port_) is IPEndPoint endPoint)
             {
-                // Create a new UdpClient for the duration of this operation
                 using (UdpClient udpClient = new UdpClient())
                 {
-                    // Add the UdpClient to the dictionary
+                    
                     UdpPortMapping!.Add(port_, udpClient);
 
                     // Allow other applications to use the same port
@@ -68,7 +65,6 @@ namespace xyPorts.UDP
                         // Connect to the target IP and port
                         udpClient.Connect(endPoint);
 
-                        // Send the message
                         udpClient.Send(sendBytes, sendBytes.Length);
 
                         // Wait for the response
@@ -91,17 +87,23 @@ namespace xyPorts.UDP
         /// <returns>String dataFromTargetPort</returns>
         public static String ReceiveDataUDP(UInt16 port_, UdpClient? udp_client_ = null)
         {
+            if (UdpPortMapping is null) UdpPortMapping = new();
+
             String responseData = "";
 
             try
             {
                 // Lauscht auf allen verfügbaren Netzwerkschnittstellen
                 IPEndPoint remoteIPEndpoint = new IPEndPoint(IPAddress.Any, port_);
+                xyLog.Log("Converted IP and port");
 
                 UdpClient udpClient = udp_client_ ?? new UdpClient();
                 UdpPortMapping!.Add(port_, udpClient);
                 udpClient.Client.Bind(remoteIPEndpoint);
-                var response = udpClient.Receive(ref remoteIPEndpoint);
+
+                xyLog.Log("Mapping and binding complete. Starting receival: \n");
+                byte[] response = udpClient.Receive(ref remoteIPEndpoint);
+                xyLog.Log("Received something! Processing message:");
                 responseData = Encoding.ASCII.GetString(response);
 
                 xyLog.Log($"Received data:     {responseData}");
